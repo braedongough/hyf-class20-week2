@@ -32,8 +32,7 @@ const select = document.querySelector('select')
 let currentSelectOption = select.options[select.options.selectedIndex].value
 
 select.addEventListener('change', function () {
-  console.log(currentSelectOption)
-  button.removeEventListener(currentSelectOption, () => {})
+  button.removeEventListener(currentSelectOption, generateSpiritAnimal)
 
   const nextSelectedOption = select.options[select.options.selectedIndex].value
 

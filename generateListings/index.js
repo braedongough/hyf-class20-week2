@@ -52,4 +52,10 @@ function generateListings(numberOfListings) {
   return listings
 }
 
-console.log(generateListings(37))
+// const forEachListings = generateListings(37).forEach((listing) => {
+//   console.log(listing.size)
+// })
+
+// console.log(forEachListings)
+
+console.log(generateListings(37).map((listing, index) => index))
