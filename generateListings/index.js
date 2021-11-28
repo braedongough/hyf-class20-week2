@@ -58,4 +58,64 @@ function generateListings(numberOfListings) {
 
 // console.log(forEachListings)
 
-console.log(generateListings(37).map((listing, index) => index))
+// console.log(generateListings(37).map((listing, index) => index))
+
+const cheapListings = generateListings(37).filter(
+  (listing) => listing.price < 2000
+)
+
+const expensiveListings = generateListings(37)
+  .filter((listing) => listing.price > 2000)
+  .map((listing) => listing.price)
+
+const listingsWithParking = generateListings(37)
+  .filter((listing) => listing.facilities.includes('Parkering'))
+  .map((listing) => {
+    const img = document.createElement('img')
+    img.src = listing.img
+    document.body.appendChild(img)
+
+    return img
+  })
+//   .map((listing) => listing.facilities)
+
+const filters = {
+  type: 'Apartment',
+  facilities: 'Parkering',
+  minPrice: 4000,
+  maxPrice: 10000,
+  //   hasGarden: false,
+  //   minSize: 10,
+  //   maxSize: 20,
+}
+
+const filterListings = (listings, filters) => {
+  return listings.filter((listing) => {
+    const typeFilter = filters.type ? filters.type === listing.type : true
+    const facilitiesFilter = filters.facilities
+      ? listing.facilities.includes(filters.facilities)
+      : true
+
+    const minPriceFilter = filters.minPrice
+      ? filters.minPrice < listing.price
+      : true
+
+    const maxPriceFilter = filters.maxPrice
+      ? filters.maxPrice > listing.price
+      : true
+
+    const hasGardenFilter = filters.hasGarden ? listings.hasGarden : true
+
+    return (
+      typeFilter &&
+      facilitiesFilter &&
+      minPriceFilter &&
+      maxPriceFilter &&
+      hasGardenFilter
+    )
+  })
+}
+
+const listings = generateListings(50)
+
+const filteredListings = filterListings(listings, filters)
